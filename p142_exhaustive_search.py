@@ -21,11 +21,26 @@ def main():
             continue
 
         # b[i]を0にした時の値が、mと一致したかどうかを表現するプログラム
+        cal(bins, 0, len(bins), m, A)
 
 
-def cal_bin(i, b):
-    # [0,0,0], [0,0,1]
-    cal_bin(i, b)
+def cal(b, i, j, m, A):
+    if m == cal_sum(b, A):
+        print("yes")
+        return
+    elif i + 1 <= j:
+        b[i] = 0
+        cal(b, i + 1, j, m, A)
+        b[i] = 1
+        cal(b, i + 1, j, m, A)
+
+
+def cal_sum(bins, A):
+    ans = 0
+    for b, a in zip(bins, A):
+        ans += b * a
+
+    return ans
 
 
 if __name__ == "__main__":
