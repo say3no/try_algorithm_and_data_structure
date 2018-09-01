@@ -1,34 +1,22 @@
 # vim: set fileencoding=utf-8:
-"""
-TEST:
-9
-0 1 4
-1 2 3
-2 -1 -1
-3 -1 -1
-4 5 8
-5 6 7
-6 -1 -1
-7 -1 -1
-8 -1 -1
-"""
 
 
 def main():
     n = input()
     nodes = [0] * n
     for i in xrange(n):
-        a, l, r = map(int, raw_input().split())
-        nodes[i] = Node(a, l, r)
+        x, y, z = map(int, raw_input().split())
+        nodes[i] = Node(x, y, z)
 
     # 子の情報から親を探す
     for i in xrange(n):
-        if nodes[i].l != -1:
+        l = nodes[i].l
+        r = nodes[i].r
+        if l != -1:
             nodes[l].p = i
-            continue
-        elif nodes[i].r != -1:
-            nodes[l].p = i
-            continue
+
+        if r != -1:
+            nodes[r].p = i
 
     # typeを決める。set_type()中で、ついでにrootの親を-1に変更する
     for i in xrange(n):
@@ -38,16 +26,16 @@ def main():
     for i in xrange(n):
         nodes[i].depth = cal_depth(nodes, i, 0)
 
-    for n in nodes:
-        n.show_ans()
-
     # 高さを探す。高さは、あるノードから到達可能な葉のうち、その距離が最大のもの高さという
-    for i in [n.id for n in nodes if n.type == "leaf"]:
+    for i in [nd.id for nd in nodes if nd.type == "leaf"]:
         cal_height(nodes, i, 0)
+
+    for i in xrange(n):
+        nodes[i].show_ans()
 
 
 def cal_depth(nodes, i, depth):
-    if nodes[i].type != "root":
+    if nodes[i].type == "root":
         return depth
 
     return cal_depth(nodes, nodes[i].p, depth + 1)
@@ -59,8 +47,6 @@ def cal_height(nodes, i, height):
     なので、逆に、leaf->rootへと駆け上がって行き、すでに値がある場合は、max(already, new)で高さを更新する。
     そうすれば、leafの数の走査で済む。
     """
-    print(height)
-    print(nodes[i].height)
     if max(height, nodes[i].height) == height:
         nodes[i].height = height
     else:
@@ -78,7 +64,7 @@ class Node(object):
         self.l = l
         self.r = r
         self.chil_num = self.__get_chil_num()
-        self.p = None
+        self.p = "unk"
         self.bros = None
         self.depth = None
         self.height = -1
@@ -95,9 +81,9 @@ class Node(object):
     def set_type(self):
         if self.chil_num == 0:
             self.type = "leaf"
-        elif self.chil_num != 0 and self.p is not None:
+        elif self.chil_num != 0 and self.p != "unk":
             self.type = "internal node"
-        elif self.chil_num != 0 and self.p is None:
+        elif self.chil_num != 0 and self.p == "unk":
             self.type = "root"
             self.p = -1
 
@@ -108,3 +94,17 @@ class Node(object):
 
 if __name__ == "__main__":
     main()
+
+"""
+TEST:
+9
+0 1 4
+1 2 3
+2 -1 -1
+3 -1 -1
+4 5 8
+5 6 7
+6 -1 -1
+7 -1 -1
+8 -1 -1
+"""
