@@ -1,5 +1,7 @@
 # vim: set fileencoding=utf-8 :
 pre_order_str = ""
+in_order_str = ""
+post_order_str = ""
 
 
 def main():
@@ -16,46 +18,16 @@ def main():
             nodes[right].parent = nodes[idx]
             node.right = nodes[right]
 
-    for node in nodes:
-        node.show_ans()
-
     root_idx = [node.idx for node in nodes if node.parent is None][0]
-    print("Pre Order")
-    pre_order(nodes[root_idx])
-    print("In Order")
-    in_order(nodes[root_idx])
-    print("Post Order")
-    post_order(nodes[root_idx])
-
-
-def pre_order(node):
-    print(node.idx)
-
-    if node.left:
-        pre_order(node.left)
-
-    if node.right:
-        pre_order(node.right)
-
-
-def in_order(node):
-    if node.left:
-        in_order(node.left)
-
-    print(node.idx)
-
-    if node.right:
-        in_order(node.right)
-
-
-def post_order(node):
-    if node.left:
-        post_order(node.left)
-
-    if node.right:
-        post_order(node.right)
-
-    print(node.idx)
+    nodes[root_idx].pre_order()
+    nodes[root_idx].in_order()
+    nodes[root_idx].post_order()
+    print("Pre Oreder")
+    print(pre_order_str)
+    print("In Oreder")
+    print(in_order_str)
+    print("Post Oreder")
+    print(post_order_str)
 
 
 class Node(object):
@@ -65,6 +37,36 @@ class Node(object):
         self.left = None
         self.right = None
         self.parent = None
+
+    def pre_order(self):
+        global pre_order_str
+        pre_order_str += str(self.idx) + " "
+        if self.left:
+            self.left.pre_order()
+
+        if self.right:
+            self.right.pre_order()
+
+    def in_order(self):
+        global in_order_str
+
+        if self.left:
+            self.left.in_order()
+
+        in_order_str += str(self.idx) + " "
+
+        if self.right:
+            self.right.in_order()
+
+    def post_order(self):
+        global post_order_str
+        if self.left:
+            self.left.post_order()
+
+        if self.right:
+            self.right.post_order()
+
+        post_order_str += str(self.idx) + " "
 
     def show_ans(self):
         print("idx: %s, left: %s, right: %s, parent: %s" % (self.idx, self.left, self.right, self.parent))
