@@ -1,4 +1,15 @@
 # vim: set fileencoding=utf-8 :
+"""
+かつて、Nodeを型の配列Nodesを用意して、探索や再帰にはそれを使わせていたのだが、
+Nodeは親、子のアドレスをもっているのだから、実際には１つのノードにだけ注目していればよいはずで、関数で渡す再には任意のNodeだけわたしていれば良い…と思った。
+しかし実際に実装してみると、直接わたした root 以外のものを返そうとすると、NoneTYpe object is not iterable になる。たぶん。
+
+親を返すメソッド、挿入するメソッド…というふうにやっていたけど、やりかたがまずかったというのもあるかもしれない。
+親がわかった時点で、その内部で諸々のリセットをやてつぃまってもいい。っていうかそうしないといけないのか？
+
+っていうか、こういうときに def の中に def を書くっていうのが生きてくるのでは？
+
+"""
 pre_order_str = ""
 in_order_str = ""
 
@@ -19,19 +30,19 @@ def main():
     root = STNode()
     for cmd, val in zip(cmds, vals):
         if cmd == "insert":
-            cmd_insert(root, val)
+            p, mes = find_parent(node=root, val=val)
+            cmd_insert(p, mes, val)
         elif cmd == "print":
             cmd_print(node=root)
 
 
-def cmd_insert(root, val):
+def cmd_insert(p, mes, val):
     """
     1. root nodeから探索を始めて、 new_node の親となるNodeを探す
     """
-    p, mes = find_parent(node=root, val=val) # TypeError: root 以外の nodeを参照できず、'NoneType' object is not iterable
 
     if mes == "root":
-        root.val = val
+        p.val = val
         pass
     elif mes == "left":
         newbie = STNode(parent=p, val=val)
@@ -69,21 +80,21 @@ def find_parent(node, val):
     :param val: val for finding parent and child
     :return: parent, child
     """
-    print(val)
-
     if node.parent is None and node.val is None:  # 一人目, rootが生まれた時のための処理
+        print(vars(node))
         node.val = val
         return node, "root"
 
     elif val <= node.val:  # node.left.valがないときもある
         if node.left is None or node.left.val < val:
-            print("%s, hidari da yo~" % node.val)
+
             return node, "left"
         else:
             find_parent(node.left, val)
 
     elif node.val < val:  # node.left.valがないときもある
         if node.right is None or val < node.right.val:
+            print(vars(node))
             return node, "right"
         else:
             find_parent(node.right, val)
