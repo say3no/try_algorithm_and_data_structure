@@ -4,6 +4,8 @@ This repository to learn the Algorithm and Data Structure for the Competitive Pr
 
 Text: [プログラミングコンテスト攻略のためのアルゴリズムとデータ構造 | 渡部 有隆, Ozy(協力), 秋葉 拓哉(協力)](https://www.amazon.co.jp/dp/4839952957/)
 
+[サポートページはここ](https://book.mynavi.jp/support/pc/5295/)
+
 
 ##  Textからの重要な引用
  - 重要なことは、プログラムを実装する前に、入力の上限からアルゴリズムの細作の計算量を評価することです。

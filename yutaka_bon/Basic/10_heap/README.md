@@ -16,6 +16,10 @@
  論理的な構造は完全二分木だけれど、実際は１次元配列を用いて表す。この配列をA,二分ヒーpうのサイズをHとすれば、`hogehogefugafuga` で親、左の子、右の子を表現することができる。(あとでかく）
  j
 
- ## 10_2
+ ## 10_2 完全二分木の Bin Heap 
 
 http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_9_A&lang=jp
+
+
+ ## 10_3 Max(Min) Bin Heap
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_9_B&lang=jp
