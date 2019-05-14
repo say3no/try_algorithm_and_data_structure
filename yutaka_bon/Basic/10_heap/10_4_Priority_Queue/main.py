@@ -1,20 +1,28 @@
 #!/usr/bin/python3
 # vim: set fileencoding=utf-8:
 import sys
-input = sys.stdin.readline
 
-H = int(input())
-h = [int(ele) for ele in input().split()]
-h = [0] + h
+ops = []
+
+while True:
+    tmp = input()
+    if tmp == "end":
+        break
+    elif tmp == "extract":
+        ops.append(tmp)
+    else:
+        op, v = tmp.split()
+        ops.append([op, int(v)])
 
 
 def main():
-    max_heap = HeapHelper.build_max_heap(h)
-    ans = ''
-    for val in max_heap[1:]:
-        ans += ' ' + str(val)
-
-    print(ans)
+    h = []
+    for i in ops:
+        if i[0] == "insert":
+            HeapHelper.insert(h, i[1])
+        if i == "extract":
+            print(HeapHelper.extract(h))
+        # Priority Queue は MaxHeapによって実現できる
 
 
 def make_divisors(n):
@@ -88,17 +96,17 @@ class HeapHelper():
         return int(i/2)
 
     @staticmethod
-    def left(i):
+    def left(heap, i):
         l_idx = 2*i
-        if H < l_idx:
+        if len(heap) - 1 < l_idx:
             return False
 
         return l_idx
 
     @staticmethod
-    def right(i):
+    def right(heap, i):
         r_idx = 2*i + 1
-        if H < r_idx:
+        if len(heap) - 1 < r_idx:
             return False
 
         return r_idx
@@ -120,16 +128,14 @@ class HeapHelper():
 
     @staticmethod
     def max_heap(heap, i):
-        """ 
-
+        """
         Arguments:
             heap {[type]} -- [description]
             i {[type]} -- [description]
         """
-        l = HeapHelper.left(i)
-        r = HeapHelper.right(i)
+        l = HeapHelper.left(heap, i)
+        r = HeapHelper.right(heap, i)
         largest = i
-        # 左の子、自分、右の子で値が最大のノードを選ぶ
         if l != False and heap[l] > heap[i]:
             largest = l
 
@@ -141,6 +147,31 @@ class HeapHelper():
             heap[largest] = heap[i]
             heap[i] = tmp
             HeapHelper.max_heap(heap, largest)
+
+    @staticmethod
+    def insert(heap, key):
+        heap.append(key)
+        idx = len(heap) - 1
+        while 1 <= idx and heap[HeapHelper.parent(idx)] < heap[idx]:
+            j = HeapHelper.parent(idx)
+            tmp = heap[idx]
+            heap[idx] = heap[j]
+            heap[j] = tmp
+            idx = HeapHelper.parent(idx)
+
+        return heap
+
+    @staticmethod
+    def extract(heap):
+        if 1 == len(heap):
+            return " "
+
+        ret = heap[0]
+        heap[0] = heap[-1]
+        del heap[-1]
+        HeapHelper.build_max_heap(heap)
+
+        return ret
 
 
 if __name__ == "__main__":

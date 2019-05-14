@@ -23,3 +23,10 @@ http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_9_A&lang=jp
 
  ## 10_3 Max(Min) Bin Heap
 http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_9_B&lang=jp
+
+
+ ## 10_4 Priority Queue
+
+> 優先度付き待ち行列（priority queue）とは、 ある優先度（例えば、値の大きな物ほど優先度が高いとか）に従って、 優先度の高いものから順に取り出すことの出来るコレクションです。 挿入順序がどうであれ、優先度の高いものが必ず1番最初に取り出されます。
+
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_9_C&lang=jp
