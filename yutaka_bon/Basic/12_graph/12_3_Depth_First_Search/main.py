@@ -1,18 +1,7 @@
 # vim: set fileencoding=utf-8:
+import time
 import sys
 from functools import lru_cache
-
-n = int(sys.stdin.readline().rstrip())
-graph = [[0] * (n+1) for _ in range(n+1)]
-for i in range(1, n+1):
-    tmp = [int(ele) for ele in sys.stdin.readline().rstrip().split()]
-    for j in tmp[2:]:
-        graph[i][j] = 1
-
-d = [-1] * (n+1)
-f = [-1] * (n+1)
-yet = [ele for ele in range(1, n+1)]
-ct = 0
 
 
 def main():
@@ -41,4 +30,18 @@ def dfs(stack):
 
 
 if __name__ == "__main__":
+    start = time.time()
+
+    n = int(sys.stdin.readline().rstrip())
+    graph = [[0] * (n+1) for _ in range(n+1)]
+    for i in range(1, n+1):
+        tmp = [int(ele) for ele in sys.stdin.readline().rstrip().split()]
+        for j in tmp[2:]:
+            graph[i][j] = 1
+
+    d = [-1] * (n+1)
+    f = [-1] * (n+1)
+    yet = [ele for ele in range(1, n+1)]
+    ct = 0
+
     main()
