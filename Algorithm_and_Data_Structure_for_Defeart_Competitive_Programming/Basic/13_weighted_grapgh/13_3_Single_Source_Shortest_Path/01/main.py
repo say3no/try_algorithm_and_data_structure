@@ -31,12 +31,11 @@ def my_dijkstra_solver():
                 u = i
 
         S.append(u)  # 2.2. u を S に追加する.
-
         # 2.3. u に隣接し, かつ V-S に属するすべての頂点 v に対する以下の値を更新する
         VS.remove(u)
         for w, v in adjc_list[u]:
             if v in VS:
-                if d[u] + w < d[v]:
+                if d[v] > d[u] + w:
                     d[v] = d[u] + w
                     p[v] = u  # 親をどこかで使うのはわかるが一旦忘れよう
 

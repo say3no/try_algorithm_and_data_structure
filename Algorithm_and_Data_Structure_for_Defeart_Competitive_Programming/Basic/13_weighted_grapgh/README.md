@@ -62,4 +62,4 @@ http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_B
 
 >ダイクストラ法は、隣接リストによる表現と、二分ヒープ(優先度付きキュー)を応用することによって、飛躍的に高速かすることができます。
 
-http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_C
+http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_****C****
