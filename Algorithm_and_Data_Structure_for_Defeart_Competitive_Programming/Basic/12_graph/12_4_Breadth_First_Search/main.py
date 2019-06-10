@@ -15,6 +15,8 @@ for i in range(1, n+1):
 d = [INF] * (n+1)
 d[1] = 0
 
+# BFS
+
 
 def main():
     global queue, d
